@@ -45,3 +45,20 @@
 
 a { text-decoration: none; color: inherit; cursor: pointer; }
 .sidebar-transition { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* PDF GENERATION TWEAKS - Fixes alignment issues in html2canvas output */
+.generating-pdf .bg-agencyBlue.rounded-full a span {
+    position: relative;
+    top: -3px; /* Fixes footer text sitting too low relative to icon */
+    display: inline-block;
+}
+
+.generating-pdf h4.border-agencyGold {
+    padding-bottom: 8px !important; /* Increases space between text and underline */
+    margin-bottom: 20px !important; /* Increases space below caption */
+}
+
+.generating-pdf .h-1.w-32.bg-agencyGold {
+    margin-top: 10px !important; /* Adds space above separator line */
+    margin-bottom: 40px !important; /* Increases space below separator line */
+}
