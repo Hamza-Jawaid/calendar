@@ -1,0 +1,47 @@
+/* A4 Page */
+.a4-page {
+    width: 297mm;
+    height: 210mm;
+    background: white;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-scroll { background: #525659; padding: 40px; overflow-y: scroll; height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+/* FANCY THIN SCROLLBARS */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* INVISIBLE INPUT STYLES */
+.invisible-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    display: block;
+    overflow: hidden;
+}
+.invisible-input:focus {
+    ring: 0;
+    outline: none;
+    box-shadow: none;
+}
+.invisible-input::placeholder {
+    color: #e5e7eb;
+    font-weight: 400;
+}
+
+a { text-decoration: none; color: inherit; cursor: pointer; }
+.sidebar-transition { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }

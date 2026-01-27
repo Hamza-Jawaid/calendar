@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Captain Design Agency - Final Builder</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="js/app.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
     <script>
         tailwind.config = {
@@ -29,67 +31,17 @@
             }
         }
     </script>
-
-    <style>
-        /* A4 Page */
-        .a4-page {
-            width: 297mm;
-            height: 210mm;
-            background: white;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden; 
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-scroll { background: #525659; padding: 40px; overflow-y: scroll; height: 100vh; display: flex; flex-direction: column; align-items: center; }
-        
-        /* FANCY THIN SCROLLBARS */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* INVISIBLE INPUT STYLES */
-        .invisible-input {
-            background: transparent;
-            border: none;
-            outline: none;
-            box-shadow: none;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            resize: none; 
-            display: block;
-            overflow: hidden; 
-        }
-        .invisible-input:focus {
-            ring: 0;
-            outline: none;
-            box-shadow: none;
-        }
-        .invisible-input::placeholder {
-            color: #e5e7eb; 
-            font-weight: 400;
-        }
-
-        a { text-decoration: none; color: inherit; cursor: pointer; }
-        .sidebar-transition { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    </style>
 </head>
 <body class="flex h-screen bg-gray-100 overflow-hidden" x-data="calendarApp()" :class="{ 'generating-pdf': isGenerating }">
 <!-------------------------------------------------------------------------------->
-<div 
+<div
         class="bg-white border-r border-gray-200 z-20 shadow-2xl flex flex-col h-screen sidebar-transition relative"
         :class="sidebarOpen ? 'w-[420px]' : 'w-[80px]'"
     >
-        
+
         <div class="h-20 flex items-center border-b border-gray-100 bg-white shrink-0 transition-all duration-200"
              :class="sidebarOpen ? 'justify-between px-6' : 'justify-center'">
-            
+
             <div x-show="sidebarOpen" class="flex flex-col overflow-hidden whitespace-nowrap">
                 <h2 class="text-xl font-black text-agencyBlue tracking-tighter leading-none">FINAL BUILDER</h2>
                 <p class="text-[10px] text-gray-400 font-bold tracking-widest mt-1">TEMPLATE EDITOR</p>
@@ -99,12 +51,12 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
-        
-        <div class="flex-1 overflow-y-auto bg-gray-50/50 p-6 space-y-5" x-show="sidebarOpen" 
-             x-transition:enter="transition ease-out duration-200" 
-             x-transition:enter-start="opacity-0" 
+
+        <div class="flex-1 overflow-y-auto bg-gray-50/50 p-6 space-y-5" x-show="sidebarOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0"
              x-transition:enter-end="opacity-100">
-            
+
             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-200">
                 <button @click="isAgencyOpen = !isAgencyOpen" class="w-full flex justify-between items-center p-4 bg-white hover:bg-gray-50 transition">
                     <div class="flex items-center gap-3">
@@ -115,12 +67,12 @@
                     </div>
                     <svg class="w-4 h-4 text-gray-400 transition-transform duration-300" :class="isAgencyOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                
+
                 <div x-show="isAgencyOpen" x-collapse>
                     <div class="p-4 space-y-4 bg-gray-50 border-t border-gray-100">
                         <div x-data="{ isDragging: false }">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Agency Logo</label>
-                            <div 
+                            <div
                                 @dragover.prevent="isDragging = true"
                                 @dragleave="isDragging = false"
                                 @drop.prevent="isDragging = false; handleDrop($event, 'logo')"
@@ -166,7 +118,7 @@
                     </div>
                     <svg class="w-4 h-4 text-gray-400 transition-transform duration-300" :class="isClientOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                
+
                 <div x-show="isClientOpen" x-collapse>
                     <div class="p-4 space-y-3 bg-gray-50 border-t border-gray-100">
                         <input type="text" x-model="client.name" class="w-full text-xs p-2.5 border border-gray-200 rounded focus:ring-1 focus:ring-agencyBlue" placeholder="Client Name">
@@ -180,11 +132,11 @@
                     <h3 class="font-black text-gray-800 text-xs tracking-wider uppercase">Content Calendar</h3>
                     <span class="text-[10px] font-bold bg-agencyBlue text-white px-2 py-0.5 rounded-full" x-text="posts.length + ' Posts'"></span>
                 </div>
-                
+
                 <div class="space-y-4">
                     <template x-for="(post, index) in posts" :key="index">
                         <div class="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition duration-200 overflow-hidden" x-data="{ expanded: true }">
-                            
+
                             <div @click="expanded = !expanded" class="flex justify-between items-center p-3 bg-white cursor-pointer select-none border-b border-transparent" :class="expanded ? 'border-gray-100' : ''">
                                 <div class="flex items-center gap-2">
                                     <span class="text-[10px] font-black text-white bg-agencyBlue px-2 py-1 rounded" x-text="'POST #' + (index + 1)"></span>
@@ -194,11 +146,11 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                             </div>
-                            
+
                             <div x-show="expanded" x-collapse>
                                 <div class="p-4 bg-white">
                                     <div class="mb-3" x-data="{ isDragging: false }">
-                                        <div 
+                                        <div
                                             @dragover.prevent="isDragging = true"
                                             @dragleave="isDragging = false"
                                             @drop.prevent="isDragging = false; handleDrop($event, 'post', index)"
@@ -217,7 +169,7 @@
                                         </div>
                                         <input type="file" x-ref="postInput" @change="uploadPostImage($event, index)" class="hidden" accept="image/*">
                                     </div>
-                                    
+
                                     <div class="space-y-2">
                                         <input type="text" x-model="post.headline" placeholder="Headline..." class="w-full text-xs p-2 border border-gray-200 rounded focus:ring-1 focus:ring-agencyBlue">
                                         <textarea x-model="post.caption" placeholder="Caption..." rows="3" class="w-full text-xs p-2 border border-gray-200 rounded focus:ring-1 focus:ring-agencyBlue resize-none"></textarea>
@@ -229,7 +181,7 @@
                         </div>
                     </template>
                 </div>
-                
+
                 <button @click="addPost()" class="w-full py-3 mt-4 bg-white border-2 border-dashed border-gray-300 text-gray-400 text-xs font-bold rounded-xl hover:bg-gray-50 hover:border-agencyBlue hover:text-agencyBlue transition flex items-center justify-center gap-2 group">
                     <div class="w-5 h-5 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center group-hover:bg-agencyBlue group-hover:text-white transition">+</div>
                     ADD NEW POST
@@ -249,7 +201,7 @@
                 <span class="absolute -top-1 -right-1 bg-agencyBlue text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold" x-text="posts.length">1</span>
             </div>
 
-            <button 
+            <button
                 @click.stop="generatePDF()"
                 :disabled="isGenerating"
                 class="mt-auto mb-6 w-10 h-10 rounded-xl bg-gradient-to-br from-agencyBlue to-blue-900 text-white flex items-center justify-center cursor-pointer hover:shadow-lg transition shadow-md relative disabled:opacity-50 disabled:cursor-not-allowed group"
@@ -279,13 +231,13 @@
     </div>
 
     <div class="flex-grow preview-scroll" id="preview-container">
-        
+
         <div class="a4-page justify-between py-16 px-20 text-center relative">
             <div class="absolute top-24 left-24 text-agencyGold opacity-80 transform -rotate-12"><svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.58-1.09v8.32c0 .41.01.82-.07 1.23-.2 1.05-.63 2.06-1.29 2.94-1.26 1.69-3.26 2.74-5.36 2.97-1.48.16-2.99-.04-4.35-.61-1.3-.55-2.45-1.44-3.26-2.6-1.07-1.52-1.39-3.5-.83-5.33.62-2.02 2.31-3.63 4.39-4.1.75-.17 1.53-.2 2.29-.11v4.06c-.32-.12-.66-.19-1-.19-.84-.01-1.63.43-2.03 1.17-.38.71-.28 1.59.25 2.22.45.54 1.14.86 1.85.83.8-.03 1.55-.4 2.01-1.06.4-.58.58-1.29.5-1.99V.02z"/></svg></div>
             <div class="absolute top-48 right-24 text-agencyGold opacity-80 transform rotate-6"><svg class="w-14 h-14" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 1.5c-2.35 0-4.25 1.9-4.25 4.25v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5zm8.5 2.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-4.25 1.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></div>
             <div class="absolute bottom-48 left-20 text-agencyGold opacity-80 transform -rotate-6"><svg class="w-14 h-14" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
             <div class="absolute bottom-28 right-28 text-agencyGold opacity-80 transform rotate-12"><svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.495-.69-2.433-2.852-2.433-4.587 0-3.725 2.706-7.149 7.809-7.149 4.098 0 7.284 2.922 7.284 6.828 0 4.075-2.572 7.35-6.143 7.35-1.198 0-2.324-.623-2.711-1.36l-.738 2.813c-.265 1.015-.985 2.285-1.467 3.064.91.267 1.868.412 2.854.412 6.621 0 11.979-5.368 11.979-11.99C23.996 5.367 18.631 0 12.017 0z"/></svg></div>
-            
+
             <div class="flex flex-col items-center justify-center pt-10">
                 <template x-if="agency.logo">
                     <img :src="agency.logo" class="h-20 w-auto object-contain mb-4">
@@ -324,26 +276,26 @@
                 </div>
 
                 <div class="flex-grow flex flex-row px-16 py-8 gap-12 items-center overflow-hidden">
-                    
+
                     <div class="w-[40%] flex flex-col justify-center">
                         <div>
                             <h4 class="text-agencyBlue font-black text-[10px] uppercase mb-4 tracking-[0.2em] border-b-2 border-agencyGold inline-block pb-1">Caption</h4>
-                            
+
                             <div x-show="isGenerating" class="font-bold text-xl text-gray-900 mb-4 leading-snug whitespace-pre-wrap" x-text="post.headline"></div>
-                            <textarea 
+                            <textarea
                                 x-show="!isGenerating"
-                                x-model="post.headline" 
+                                x-model="post.headline"
                                 @input="resizeTextarea($el)"
                                 x-init="resizeTextarea($el)"
                                 class="invisible-input font-bold text-xl text-gray-900 mb-4 leading-snug"
                                 placeholder="Headline..."
                                 rows="1"
                             ></textarea>
-                            
+
                             <div x-show="isGenerating" class="text-gray-600 text-sm leading-7 font-medium whitespace-pre-wrap" x-text="post.caption"></div>
-                            <textarea 
+                            <textarea
                                 x-show="!isGenerating"
-                                x-model="post.caption" 
+                                x-model="post.caption"
                                 @input="resizeTextarea($el)"
                                 x-init="resizeTextarea($el)"
                                 class="invisible-input text-gray-600 text-sm leading-7 font-medium"
@@ -351,12 +303,12 @@
                                 rows="1"
                             ></textarea>
                         </div>
-                        
+
                         <div class="mt-6 pt-6 border-t border-gray-100 w-full">
                             <div x-show="isGenerating" class="text-blue-600 font-bold text-xs leading-relaxed whitespace-pre-wrap" x-text="post.hashtags"></div>
-                            <textarea 
+                            <textarea
                                 x-show="!isGenerating"
-                                x-model="post.hashtags" 
+                                x-model="post.hashtags"
                                 @input="resizeTextarea($el)"
                                 x-init="resizeTextarea($el)"
                                 class="invisible-input text-blue-600 font-bold text-xs leading-relaxed"
@@ -375,7 +327,7 @@
                         <template x-if="post.image">
                             <img :src="post.image" class="max-w-full max-h-full object-contain rounded-[5%] relative z-10">
                         </template>
-                        
+
                         <template x-if="!post.image">
                             <div class="text-center border-2 border-dashed rounded p-10 w-full h-[300px] flex flex-col items-center justify-center transition-colors duration-200"
                                  :class="isDragging ? 'border-agencyBlue bg-blue-50' : 'border-gray-200'"
@@ -459,140 +411,5 @@
         </div>
 
     </div>
-
-    <script>
-        function calendarApp() {
-            return {
-                isGenerating: false,
-                sidebarOpen: false, 
-                isAgencyOpen: false, 
-                isClientOpen: false, 
-                agency: {
-                    name: 'Captain Design Agency',
-                    email: 'support@captaindesignagency.com',
-                    website: 'captaindesignagency.com',
-                    phone: '(916) 249-7914',
-                    logo: null 
-                },
-                client: {
-                    name: 'Add Client Name',
-                    subtitle: 'Social Media Content Calendar',
-                },
-                posts: [
-                    { image: null, headline: '', caption: '', hashtags: '' } 
-                ],
-                
-                checkNewPostNeeded(index) {
-                    if (index === this.posts.length - 1) {
-                        const post = this.posts[index];
-                        if (post.image) {
-                            this.addPost();
-                        }
-                    }
-                },
-                addPost() {
-                    this.posts.push({ image: null, headline: '', caption: '', hashtags: '' });
-                },
-                removePost(index) {
-                    this.posts.splice(index, 1);
-                    if (this.posts.length === 0) {
-                        this.addPost();
-                    }
-                },
-
-                getDisplayUrl(url) {
-                    if (!url) return '';
-                    let domain = url.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '');
-                    domain = domain.split('/')[0];
-                    return 'www.' + domain; 
-                },
-                
-                uploadAgencyLogo(event) {
-                    const file = event.target.files[0];
-                    if (file) this.processFile(file, 'logo');
-                },
-                uploadPostImage(event, index) {
-                    const file = event.target.files[0];
-                    if (file) this.processFile(file, 'post', index);
-                },
-                handleDrop(event, type, index = null) {
-                    const file = event.dataTransfer.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        this.processFile(file, type, index);
-                    }
-                },
-                processFile(file, type, index = null) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => { 
-                        if (type === 'logo') {
-                            this.agency.logo = e.target.result;
-                        } else if (type === 'post') {
-                            this.posts[index].image = e.target.result;
-                            this.checkNewPostNeeded(index); 
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                },
-                
-                resizeTextarea(el) {
-                    el.style.height = 'auto';
-                    el.style.height = el.scrollHeight + 'px';
-                },
-
-                async captureAndAdd(element) {
-                    return await html2canvas(element, {
-                        scale: 2, 
-                        useCORS: true,
-                        logging: false,
-                        backgroundColor: '#ffffff'
-                    }).then(canvas => {
-                        return canvas.toDataURL('image/jpeg', 0.9);
-                    });
-                },
-
-                async generatePDF() {
-                    this.isGenerating = true;
-                    await new Promise(resolve => setTimeout(resolve, 100)); // Wait for DOM update
-                    
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF('l', 'mm', 'a4');
-                    const pages = document.querySelectorAll('.a4-page');
-                    const pdfWidth = doc.internal.pageSize.getWidth();
-                    const pdfHeight = doc.internal.pageSize.getHeight();
-                    
-                    let pageAdded = false;
-
-                    // Helper to add image to PDF
-                    const addToDoc = (imgData) => {
-                        if (pageAdded) doc.addPage();
-                        doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-                        pageAdded = true;
-                    }
-
-                    // 1. Render Cover Page (Always)
-                    const coverImg = await this.captureAndAdd(pages[0]);
-                    addToDoc(coverImg);
-
-                    // 2. Render Posts (FIX 2: SKIP EMPTY POSTS)
-                    for (let i = 0; i < this.posts.length; i++) {
-                        // Only add if the post has an image
-                        if (this.posts[i].image) {
-                            // DOM element for post is at index i + 1 (because index 0 is cover)
-                            const postImg = await this.captureAndAdd(pages[i + 1]);
-                            addToDoc(postImg);
-                        }
-                    }
-
-                    // 3. Render Thank You Page (Always)
-                    // The thank you page is the last element in the 'pages' NodeList
-                    const thanksImg = await this.captureAndAdd(pages[pages.length - 1]);
-                    addToDoc(thanksImg);
-                    
-                    doc.save(this.client.name + '_Calendar.pdf');
-                    this.isGenerating = false;
-                }
-            }
-        }
-    </script>
 </body>
 </html>
