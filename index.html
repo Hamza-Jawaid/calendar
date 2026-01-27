@@ -201,30 +201,22 @@
                 <span class="absolute -top-1 -right-1 bg-agencyBlue text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold" x-text="posts.length">1</span>
             </div>
 
+        </div>
+
+        <div class="p-4 bg-white border-t border-gray-200 z-10 shrink-0 flex justify-center">
             <button
                 @click.stop="generatePDF()"
                 :disabled="isGenerating"
-                class="mt-auto mb-6 w-10 h-10 rounded-xl bg-gradient-to-br from-agencyBlue to-blue-900 text-white flex items-center justify-center cursor-pointer hover:shadow-lg transition shadow-md relative disabled:opacity-50 disabled:cursor-not-allowed group"
+                :class="sidebarOpen ? 'w-full py-3.5 bg-gradient-to-r from-agencyBlue to-blue-900 text-white font-bold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-900 hover:to-agencyBlue transition flex justify-center items-center tracking-widest text-xs transform hover:-translate-y-0.5' : 'w-10 h-10 rounded-xl bg-gradient-to-br from-agencyBlue to-blue-900 text-white flex items-center justify-center cursor-pointer hover:shadow-lg transition shadow-md relative disabled:opacity-50 disabled:cursor-not-allowed group'"
                 title="Download PDF"
             >
-                 <span x-show="!isGenerating">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                 </span>
-                 <span x-show="isGenerating">
-                    <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                 </span>
-            </button>
-        </div>
-
-        <div class="p-4 bg-white border-t border-gray-200 z-10 shrink-0" x-show="sidebarOpen">
-            <button @click="generatePDF()" class="w-full py-3.5 bg-gradient-to-r from-agencyBlue to-blue-900 text-white font-bold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-900 hover:to-agencyBlue transition flex justify-center items-center tracking-widest text-xs transform hover:-translate-y-0.5">
-                <span x-show="!isGenerating" class="flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    DOWNLOAD PDF
+                <span x-show="!isGenerating" class="flex items-center justify-center" :class="sidebarOpen ? 'gap-2' : ''">
+                    <svg :class="sidebarOpen ? 'w-4 h-4' : 'w-5 h-5 group-hover:scale-110 transition-transform'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span x-show="sidebarOpen">DOWNLOAD PDF</span>
                 </span>
-                <span x-show="isGenerating" class="flex items-center gap-2">
-                    <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    PROCESSING...
+                <span x-show="isGenerating" class="flex items-center justify-center" :class="sidebarOpen ? 'gap-2' : ''">
+                    <svg class="animate-spin" :class="sidebarOpen ? 'w-4 h-4' : 'w-5 h-5'" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <span x-show="sidebarOpen">PROCESSING...</span>
                 </span>
             </button>
         </div>
