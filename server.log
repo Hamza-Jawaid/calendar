@@ -1,8 +1,0 @@
-127.0.0.1 - - [27/Jan/2026 19:45:56] "GET /index.html HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:45:56] "GET /css/style.css HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:45:56] "GET /js/pdf-generator.js HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:45:57] "GET /js/app.js HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:46:21] "GET /index.html HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:46:21] "GET /js/pdf-generator.js HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:46:21] "GET /css/style.css HTTP/1.1" 200 -
-127.0.0.1 - - [27/Jan/2026 19:46:22] "GET /js/app.js HTTP/1.1" 200 -
