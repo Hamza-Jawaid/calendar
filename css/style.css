@@ -45,3 +45,9 @@
 
 a { text-decoration: none; color: inherit; cursor: pointer; }
 .sidebar-transition { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* HTML2CANVAS TEXT FIX */
+.generating-pdf .pdf-text {
+    position: relative;
+    top: -3px;
+}
