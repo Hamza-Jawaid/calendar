@@ -76,57 +76,27 @@ function calendarApp() {
             el.style.height = el.scrollHeight + 'px';
         },
 
-        async captureAndAdd(element) {
-            return await html2canvas(element, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff'
-            }).then(canvas => {
-                return canvas.toDataURL('image/jpeg', 0.9);
-            });
-        },
-
         async generatePDF() {
             this.isGenerating = true;
-            await new Promise(resolve => setTimeout(resolve, 100)); // Wait for DOM update
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('l', 'mm', 'a4');
-            const pages = document.querySelectorAll('.a4-page');
-            const pdfWidth = doc.internal.pageSize.getWidth();
-            const pdfHeight = doc.internal.pageSize.getHeight();
-
-            let pageAdded = false;
-
-            // Helper to add image to PDF
-            const addToDoc = (imgData) => {
-                if (pageAdded) doc.addPage();
-                doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-                pageAdded = true;
-            }
-
-            // 1. Render Cover Page (Always)
-            const coverImg = await this.captureAndAdd(pages[0]);
-            addToDoc(coverImg);
-
-            // 2. Render Posts (FIX 2: SKIP EMPTY POSTS)
-            for (let i = 0; i < this.posts.length; i++) {
-                // Only add if the post has an image
-                if (this.posts[i].image) {
-                    // DOM element for post is at index i + 1 (because index 0 is cover)
-                    const postImg = await this.captureAndAdd(pages[i + 1]);
-                    addToDoc(postImg);
+            try {
+                if (typeof PDFGenerator !== 'undefined') {
+                    const generator = new PDFGenerator({
+                        agency: JSON.parse(JSON.stringify(this.agency)), // Clone to avoid proxies issues if any
+                        client: JSON.parse(JSON.stringify(this.client)),
+                        posts: JSON.parse(JSON.stringify(this.posts))
+                    });
+                    await generator.generate();
+                } else {
+                    console.error("PDFGenerator module not found");
+                    alert("Error: PDF Generation module not loaded.");
                 }
+            } catch (error) {
+                console.error("Error generating PDF:", error);
+                alert("An error occurred while generating the PDF. Please try again.");
+            } finally {
+                this.isGenerating = false;
             }
-
-            // 3. Render Thank You Page (Always)
-            // The thank you page is the last element in the 'pages' NodeList
-            const thanksImg = await this.captureAndAdd(pages[pages.length - 1]);
-            addToDoc(thanksImg);
-
-            doc.save(this.client.name + '_Calendar.pdf');
-            this.isGenerating = false;
         }
     }
 }
