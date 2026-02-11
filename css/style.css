@@ -55,8 +55,8 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
 /* Fix for contact details alignment in Thank You page */
 .contact-text-fix {
     position: relative;
-    top: -3px;
+    top: -5px;
 }
 .generating-pdf .contact-text-fix {
-    top: -6px;
+    top: -8px;
 }
