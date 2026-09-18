@@ -5,10 +5,10 @@ function calendarApp() {
         isAgencyOpen: false,
         isClientOpen: false,
         agency: {
-            name: 'Captain Design Agency',
-            email: 'support@captaindesignagency.com',
-            website: 'captaindesignagency.com',
-            phone: '(916) 249-7914',
+            name: 'Write Your Agency Name',
+            email: 'your@company.com',
+            website: 'yourwebsite.com',
+            phone: '(000) 000-0000',
             logo: null
         },
         client: {
