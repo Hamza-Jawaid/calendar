@@ -33,6 +33,8 @@ When you're happy with your content calendar:
 1. Click the large blue **DOWNLOAD PDF** button at the bottom of the sidebar.
 2. The tool will process the visual layout and generate a clean, multi-page, non-interactive PDF perfectly formatted for presentation.
 
+![Download in HD](assets/images/download.png)
+
 > ⚠️ **Important Data Privacy Note:**
 > We prioritize your privacy! This tool is 100% client-side. **We do not save any of your data to a database.** Everything lives temporarily in your browser's memory.
 >
