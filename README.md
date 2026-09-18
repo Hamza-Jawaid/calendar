@@ -17,7 +17,7 @@ Make the calendar yours before presenting it.
 - **Client Details:** Click **CLIENT DETAILS** to add the Client Name and a Subtitle.
 - These details dynamically populate the header, footer, and "Thank You" page of the final PDF.
 
-![Agency Branding](assets/images/agency_branding.png)
+![Agency Branding](assets/images/agency_and_client_branding.png)
 
 ### 3. Drag & Drop Content Calendar
 This is where the magic happens. You can build out posts sequentially with rich visual previews.
