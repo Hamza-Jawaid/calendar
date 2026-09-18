@@ -26,8 +26,8 @@ This is where the magic happens. You can build out posts sequentially with rich 
 - **Details:** Fill in the **Headline**, **Caption**, and **#hashtags**.
 - **Edit/Delete:** You can edit these directly in the sidebar or click the red trash can icon next to a post to delete it.
 
-![Content Calendar](assets/images/content_calendar.png)
-
+![Content Calendar](assets/images/content.png)
+![Text Calendar](assets/images/text.png)
 ### 4. Download HD PDF
 When you're happy with your content calendar:
 1. Click the large blue **DOWNLOAD PDF** button at the bottom of the sidebar.
