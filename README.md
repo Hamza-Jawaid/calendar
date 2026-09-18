@@ -9,7 +9,7 @@ A beautiful, free, and completely browser-based tool to create, organize, and pr
 ### 1. The Main Interface
 The entire builder works beautifully on one screen. The left sidebar contains all your controls, while the right side shows a real-time, high-fidelity A4 preview of exactly what your client will see when you download the final PDF.
 
-![Main Interface](assets/images/main_interface.png)
+![Main Interface](assets/images/agency_and_client_branding.png)
 
 ### 2. Agency Branding & Client Details
 Make the calendar yours before presenting it.
